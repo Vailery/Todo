@@ -1,0 +1,9 @@
+.todoInput {
+  border: none;
+  border-bottom: 1px solid gray;
+  padding: 5px;
+}
+
+.todoInput:focus-visible {
+  outline: none;
+}

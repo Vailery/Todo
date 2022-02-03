@@ -1,4 +1,3 @@
-import { Component } from "react";
 import styles from "./Button.module.css";
 
 interface IProps {

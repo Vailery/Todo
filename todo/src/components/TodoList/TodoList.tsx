@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { isTemplateExpression } from "typescript";
 import { Form } from "../Form/Form";
 import { TodoItem } from "../TodoItem/TodoItem";
+import styles from "./TodoList.module.css";
 
 interface ITodoItem {
   id: string;
@@ -12,6 +12,7 @@ interface ITodoItem {
 
 export const TodoList = () => {
   const [todos, setTodos] = useState<ITodoItem[]>([]);
+  const date = new Date();
 
   const onClickDelete = (id: string) => {
     const newTodos = todos.filter((item) => item.id !== id);
@@ -54,25 +55,39 @@ export const TodoList = () => {
   }, 0);
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      {todos.length === 0 ? <p>Начни уже делать что-нибудь</p> : null}
-      <Form addNewTodo={addNewTodo} />
-      {todos.map((item) => {
-        return (
-          <TodoItem
-            key={item.id}
-            text={item.text}
-            onComplete={() => onClickComplete(item.id)}
-            onDelete={() => onClickDelete(item.id)}
-            completed={item.completed}
-            time={item.time}
-          />
-        );
-      })}
-      <p>Всего дел: {todos.length}</p>
-      <p>Выполненные: {completedCount}</p>
+    <div className={styles.main}>
+      <div className={styles.headerImage}>
+        <p>{date.toLocaleString("en-US", { day: "numeric" })}</p>
+
+        <div className={styles.date}>
+          <p>{date.toLocaleString("en-US", { weekday: "long" })}</p>
+          <p>{date.toLocaleString("en-US", { month: "long" })}</p>
+        </div>
+      </div>
+
+      <div className={styles.list}>
+        <div className={styles.info}>
+          <p>Your tasks</p>
+          <p>
+            {completedCount} / {todos.length} tasks
+          </p>
+        </div>
+
+        <Form addNewTodo={addNewTodo} />
+        {todos.map((item) => {
+          return (
+            <TodoItem
+              key={item.id}
+              text={item.text}
+              onComplete={() => onClickComplete(item.id)}
+              onDelete={() => onClickDelete(item.id)}
+              completed={item.completed}
+              time={item.time}
+            />
+          );
+        })}
+        {todos.length === 0 ? <p>Let's do it!</p> : null}
+      </div>
     </div>
   );
 };

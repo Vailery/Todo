@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ChangeEvent } from "react";
-import { setTextRange } from "typescript";
 import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
+import styles from "./Form.module.css";
 
 interface IProps {
   addNewTodo: (text: string) => void;
@@ -21,9 +21,9 @@ export const Form = ({ addNewTodo }: IProps) => {
   };
 
   return (
-    <div>
+    <div className={styles.main}>
       <Input value={text} onChange={onChange} />
-      <Button text="Добавить" onClick={handeAddNewTodo} />
+      <Button text="&#43;" onClick={handeAddNewTodo} />
     </div>
   );
 };

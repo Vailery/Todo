@@ -1,4 +1,3 @@
-import { Component } from "react";
 import styles from "./Input.module.css";
 import { ChangeEventHandler } from "react";
 
@@ -14,6 +13,7 @@ export const Input = ({ value, onChange }: IProps) => {
       onChange={onChange}
       value={value}
       className={styles.todoInput}
+      placeholder="Add a new task..."
     />
   );
 };
