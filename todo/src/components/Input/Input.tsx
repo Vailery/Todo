@@ -1,6 +1,6 @@
 import { Component } from "react";
 import styles from "./Input.module.css";
-import {ChangeEventHandler} from "react";
+import { ChangeEventHandler } from "react";
 
 interface IProps {
   value: string;
