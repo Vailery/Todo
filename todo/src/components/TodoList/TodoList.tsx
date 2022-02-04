@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form } from "../Form/Form";
 import { TodoItem } from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
@@ -13,6 +13,23 @@ interface ITodoItem {
 export const TodoList = () => {
   const [todos, setTodos] = useState<ITodoItem[]>([]);
   const date = new Date();
+
+  const isMountedRef = useRef(false);
+
+  useEffect(() => {
+    const todosStr = localStorage.getItem("todosArr");
+    if (todosStr) {
+      setTodos(JSON.parse(todosStr));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isMountedRef.current === true) {
+      localStorage.setItem("todosArr", JSON.stringify(todos));
+    } else {
+      isMountedRef.current = true;
+    }
+  }, [todos, isMountedRef]);
 
   const onClickDelete = (id: string) => {
     const newTodos = todos.filter((item) => item.id !== id);
