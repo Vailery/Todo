@@ -1,0 +1,28 @@
+.todo {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.todo p {
+  margin: 0;
+}
+
+.todo button {
+  border-radius: 20px;
+  background-color: rgb(206, 108, 108);
+}
+
+.todo button:first-of-type {
+  background-color: rgb(82, 108, 108);
+}
+
+.time {
+  position: absolute;
+  color: gray;
+  font-size: 14px;
+  bottom: 0;
+  transform: translate(40%, 10px);
+}
