@@ -1,67 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ITodosState } from "../../redux/reducers/todosReducer";
 import { Form } from "../Form/Form";
 import { TodoItem } from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
 
-interface ITodoItem {
-  id: string;
-  text: string;
-  completed: boolean;
-  time: string;
-}
-
 export const TodoList = () => {
-  const [todos, setTodos] = useState<ITodoItem[]>([]);
   const date = new Date();
-
-  const isMountedRef = useRef(false);
-
-  useEffect(() => {
-    const todosStr = localStorage.getItem("todosArr");
-    if (todosStr) {
-      setTodos(JSON.parse(todosStr));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isMountedRef.current === true) {
-      localStorage.setItem("todosArr", JSON.stringify(todos));
-    } else {
-      isMountedRef.current = true;
-    }
-  }, [todos, isMountedRef]);
+  const state = useSelector((state: ITodosState) => state);
+  const todos = state.todos;
+  const dispatch = useDispatch();
 
   const onClickDelete = (id: string) => {
-    const newTodos = todos.filter((item) => item.id !== id);
-
-    setTodos(newTodos);
+    dispatch({ type: "DELETE_TODO", id: id });
   };
 
   const onClickComplete = (id: string) => {
-    const newTodos = todos.map((item) => {
-      if (item.id === id) {
-        return { ...item, completed: !item.completed };
-      }
-      return item;
-    });
-
-    setTodos(newTodos);
+    dispatch({ type: "COMPLETE_TODO", id: id });
   };
 
   const addNewTodo = (text: string) => {
-    const date = new Date();
-    if (text !== "") {
-      const newTodo = {
-        id: "id" + Math.random().toString(16).slice(2),
-        text: text,
-        completed: false,
-        time: date.toLocaleString(),
-      };
-      const newTodos = [...todos, newTodo];
-      setTodos(newTodos);
-    } else {
-      alert("Введи todo");
-    }
+    return text !== "" ? dispatch({ type: "ADD_TODO", text: text }) : null;
   };
 
   const completedCount = todos.reduce((prev, curr) => {
