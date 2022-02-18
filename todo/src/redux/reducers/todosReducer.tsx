@@ -1,3 +1,5 @@
+import { ACTIONS } from "../constants";
+
 export interface ITodoItem {
   id: string;
   text: string;
@@ -9,13 +11,13 @@ export interface ITodosState {
   todos: ITodoItem[];
 }
 
-const defaultState: ITodosState = {
+export const defaultState: ITodosState = {
   todos: [],
 };
 
 export const todosReucer = (state = defaultState, action: any) => {
   switch (action.type) {
-    case "ADD_TODO": {
+    case ACTIONS.ADD_TODO: {
       const date = new Date();
       const newTodo = {
         id: "id" + Math.random().toString(16).slice(2),
@@ -30,7 +32,7 @@ export const todosReucer = (state = defaultState, action: any) => {
       };
     }
 
-    case "DELETE_TODO": {
+    case ACTIONS.DELETE_TODO: {
       const newTodos = state.todos.filter((item) => item.id !== action.id);
 
       return {
@@ -38,7 +40,7 @@ export const todosReucer = (state = defaultState, action: any) => {
       };
     }
 
-    case "COMPLETE_TODO": {
+    case ACTIONS.COMPLETE_TODO: {
       const newTodos = state.todos.map((item) => {
         if (item.id === action.id) {
           return { ...item, completed: !item.completed };

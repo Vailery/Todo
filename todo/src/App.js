@@ -1,7 +1,7 @@
 import "./App.css";
 import { TodoList } from "./components/TodoList/TodoList";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import store from "./redux/store";
 
 function App() {
   return (

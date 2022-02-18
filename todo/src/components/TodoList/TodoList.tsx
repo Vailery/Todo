@@ -1,4 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
+import {
+  addTodo,
+  completeTodo,
+  deleteTodo,
+} from "../../redux/actions/todosActions";
 import { ITodosState } from "../../redux/reducers/todosReducer";
 import { Form } from "../Form/Form";
 import { TodoItem } from "../TodoItem/TodoItem";
@@ -6,20 +11,19 @@ import styles from "./TodoList.module.css";
 
 export const TodoList = () => {
   const date = new Date();
-  const state = useSelector((state: ITodosState) => state);
-  const todos = state.todos;
+  const todos = useSelector((state: ITodosState) => state.todos);
   const dispatch = useDispatch();
 
   const onClickDelete = (id: string) => {
-    dispatch({ type: "DELETE_TODO", id: id });
+    dispatch(deleteTodo(id));
   };
 
   const onClickComplete = (id: string) => {
-    dispatch({ type: "COMPLETE_TODO", id: id });
+    dispatch(completeTodo(id));
   };
 
   const addNewTodo = (text: string) => {
-    return text !== "" ? dispatch({ type: "ADD_TODO", text: text }) : null;
+    return text !== "" ? dispatch(addTodo(text)) : null;
   };
 
   const completedCount = todos.reduce((prev, curr) => {
