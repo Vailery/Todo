@@ -1,7 +1,17 @@
-import { createStore } from "redux";
-import { todosReucer, defaultState } from "./reducers/todosReducer";
+import { combineReducers, createStore } from "redux";
+import {
+  todosReducer,
+  defaultState,
+  ITodosState,
+} from "./reducers/todosReducer";
+import { counterReducer } from "./reducers/counterReducer";
 
-function saveToLocalStorage(state = defaultState) {
+export interface IState {
+  todosReducer: ITodosState;
+  counterReducer: any;
+}
+
+function saveToLocalStorage(state: any) {
   try {
     const localState = JSON.stringify(state);
     localStorage.setItem("todosLocalState", localState);
@@ -21,7 +31,10 @@ function loadFromLocalStorage() {
   }
 }
 
-const store = createStore(todosReucer, loadFromLocalStorage());
+const store = createStore(
+  combineReducers({ todosReducer, counterReducer }),
+  loadFromLocalStorage()
+);
 
 store.subscribe(() => saveToLocalStorage(store.getState()));
 

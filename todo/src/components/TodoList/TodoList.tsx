@@ -5,13 +5,14 @@ import {
   deleteTodo,
 } from "../../redux/actions/todosActions";
 import { ITodosState } from "../../redux/reducers/todosReducer";
+import { IState } from "../../redux/store";
 import { Form } from "../Form/Form";
 import { TodoItem } from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
 
 export const TodoList = () => {
   const date = new Date();
-  const todos = useSelector((state: ITodosState) => state.todos);
+  const todos = useSelector((state: IState) => state.todosReducer.todos);
   const dispatch = useDispatch();
 
   const onClickDelete = (id: string) => {

@@ -15,7 +15,7 @@ export const defaultState: ITodosState = {
   todos: [],
 };
 
-export const todosReucer = (state = defaultState, action: any) => {
+export const todosReducer = (state = defaultState, action: any) => {
   switch (action.type) {
     case ACTIONS.ADD_TODO: {
       const date = new Date();
