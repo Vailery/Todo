@@ -3,11 +3,14 @@ import {
   todosReducer,
   defaultState,
   ITodosState,
+  todosVisibility,
 } from "./reducers/todosReducer";
 import { counterReducer } from "./reducers/counterReducer";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 export interface IState {
   todosReducer: ITodosState;
+  todosVisibility: string;
   counterReducer: any;
 }
 
@@ -32,8 +35,9 @@ function loadFromLocalStorage() {
 }
 
 const store = createStore(
-  combineReducers({ todosReducer, counterReducer }),
-  loadFromLocalStorage()
+  combineReducers({ todosReducer, todosVisibility, counterReducer }),
+  loadFromLocalStorage(),
+  composeWithDevTools()
 );
 
 store.subscribe(() => saveToLocalStorage(store.getState()));
