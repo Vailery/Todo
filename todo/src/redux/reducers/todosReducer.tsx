@@ -1,4 +1,4 @@
-import { ACTIONS } from "../constants";
+import { ACTIONS, TODOS_VISIBILITY } from "../constants";
 
 export interface ITodoItem {
   id: string;
@@ -53,6 +53,22 @@ export const todosReducer = (state = defaultState, action: any) => {
       };
     }
 
+    default:
+      return state;
+  }
+};
+
+export const todosVisibility = (
+  state = TODOS_VISIBILITY.SHOW_ALL,
+  action: any
+) => {
+  switch (action.type) {
+    case TODOS_VISIBILITY.SHOW_ALL:
+      return TODOS_VISIBILITY.SHOW_ALL;
+    case TODOS_VISIBILITY.SHOW_ACTIVE:
+      return TODOS_VISIBILITY.SHOW_ACTIVE;
+    case TODOS_VISIBILITY.SHOW_DONE:
+      return TODOS_VISIBILITY.SHOW_DONE;
     default:
       return state;
   }

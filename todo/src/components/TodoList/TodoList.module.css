@@ -67,3 +67,17 @@
   font-size: 20px;
   color: black;
 }
+
+.todosChoise {
+  display: flex;
+  justify-content: space-around;
+}
+
+.todosChoise a {
+  text-decoration: none;
+  color: #89969e;
+}
+
+.todosChoise a:hover {
+  color: #4d5458;
+}
